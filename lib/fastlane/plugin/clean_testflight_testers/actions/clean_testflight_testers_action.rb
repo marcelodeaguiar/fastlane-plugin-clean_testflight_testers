@@ -19,7 +19,7 @@ module Fastlane
         UI.user_error!("Couldn't find app '#{app_identifier}' on the account of on iTunes Connect") unless spaceship_app
 
         UI.message "DEBUG: #{spaceship_app}"
-        all_testers = spaceship_app.get_beta_testers(limit: 200)
+        all_testers = spaceship_app.get_beta_testers(limit: 1)
         UI.message "All Testers: #{all_testers}"
         counter = 0
 
