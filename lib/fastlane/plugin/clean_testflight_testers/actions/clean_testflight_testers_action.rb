@@ -5,18 +5,18 @@ module Fastlane
         require 'spaceship'
 
         app_identifier = params[:app_identifier]
-        username = params[:username]
+        #username = params[:username]
 
-        UI.message("Login to iTunes Connect (#{username})")
-        Spaceship::Tunes.login(username)
-        Spaceship::Tunes.select_team
-        UI.message("Login successful")
+        #UI.message("Login to iTunes Connect (#{username})")
+        #Spaceship::Tunes.login(username)
+        #Spaceship::Tunes.select_team
+        #UI.message("Login successful")
 
         UI.message("Fetching all TestFlight testers, this might take a few minutes, depending on the number of testers")
 
         # Convert from bundle identifier to app ID
         spaceship_app ||= Spaceship::ConnectAPI::App.find(app_identifier)
-        UI.user_error!("Couldn't find app '#{app_identifier}' on the account of '#{username}' on iTunes Connect") unless spaceship_app
+        UI.user_error!("Couldn't find app '#{app_identifier}' on the account of on iTunes Connect") unless spaceship_app
 
         all_testers = spaceship_app.get_beta_testers(includes: "betaTesterMetrics", limit: 200)
         counter = 0
@@ -80,11 +80,10 @@ module Fastlane
         user ||= CredentialsManager::AppfileConfig.try_fetch_value(:apple_id)
 
         [
-          FastlaneCore::ConfigItem.new(key: :username,
-                                     short_option: "-u",
-                                     env_name: "CLEAN_TESTFLIGHT_TESTERS_USERNAME",
-                                     description: "Your Apple ID Username",
-                                     default_value: user),
+          #FastlaneCore::ConfigItem.new(key: :username,
+          #                           short_option: "-u",
+          #                           env_name: "CLEAN_TESTFLIGHT_TESTERS_USERNAME",
+          #                           description: "Your Apple ID Username",
           FastlaneCore::ConfigItem.new(key: :app_identifier,
                                        short_option: "-a",
                                        env_name: "CLEAN_TESTFLIGHT_TESTERS_APP_IDENTIFIER",
